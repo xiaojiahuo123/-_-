@@ -1,0 +1,12 @@
+# 课件 PDF：约 182 MB，属课程版权材料，默认不入库
+*.pdf
+
+# 临时文件与回收站
+.tmp_q1
+.tmp/
+.trash/
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
+desktop.ini

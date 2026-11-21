@@ -1,0 +1,66 @@
+filters:
+  and:
+    - file.ext == "md"
+formulas:
+  days_ago: ((now() - file.mtime).days).round()
+  chars: (file.size / 3).round(0)
+properties:
+  file.name:
+    displayName: 笔记
+  file.folder:
+    displayName: 目录
+  file.tags:
+    displayName: 标签
+  file.mtime:
+    displayName: 最后修改
+  formula.days_ago:
+    displayName: 距今（天）
+  formula.chars:
+    displayName: 约字数
+  note.date:
+    displayName: 日期
+  note.updated:
+    displayName: 更新于
+  note.type:
+    displayName: 类型
+views:
+  - type: table
+    name: 时政时间线
+    filters:
+      and:
+        - file.inFolder("时政热点")
+        - file.basename != "_模板与约定"
+    order:
+      - date
+      - file.name
+      - updated
+      - formula.days_ago
+    sort:
+      - property: date
+        direction: DESC
+  - type: table
+    name: 笔记清单
+    order:
+      - file.name
+      - file.folder
+      - file.tags
+      - formula.chars
+      - formula.days_ago
+    sort:
+      - property: file.folder
+        direction: ASC
+      - property: file.name
+        direction: ASC
+  - type: cards
+    name: 知识板块
+    filters:
+      and:
+        - file.folder != "时政热点"
+        - file.folder != "_看板"
+    order:
+      - file.name
+      - file.tags
+      - formula.chars
+    sort:
+      - property: file.name
+        direction: ASC
